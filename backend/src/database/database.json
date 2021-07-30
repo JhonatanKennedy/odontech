@@ -1,12 +1,13 @@
 {
     "users":[
         {
+            "id": 0,
             "name":"user1",
             "age": 15,
             "phone": "81982385773",
             "email": "example@hotmail.com",
             "password":"123",
-            "medicalRecords":[]
+            "medicalRecords": []
         }
     ]
 }

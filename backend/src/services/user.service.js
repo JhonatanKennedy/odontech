@@ -1,7 +1,8 @@
 module.exports = class UserService{
-    static async createUser(data){
+    static createUser(data,id){
         const newAge = parseInt(data.age);
         const newUSer = {
+            id: id,
             name: data.name,
             age: newAge,
             phone: data.phone,
