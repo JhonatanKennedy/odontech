@@ -1,35 +1,32 @@
 const MedicalRecordService = require('../services/medicalRecord.service');
-const database = require('../database/database.json');
 
 module.exports = class MedicalRecord{
-    static apiCreateMedicalRecord(request, response){
-        const userId = request.params.id;
+    static CreateMedicalRecord(request, response){
+        const {userId} = request.params;
         try{
-            const id = database.users[userId].medicalRecords.length;
-            const newMedicalRecord = MedicalRecordService.createMedicalRecord(request.body,id);
-            database.users[userId].medicalRecords.push(newMedicalRecord);
-            response.json(newMedicalRecord);
+            const Record = MedicalRecordService.createMedicalRecord( userId, request.body );
+            response.json(Record);
         }catch(error){
             response.status(500).json({error: error});
         }
     }
 
-    static apiListMedicalRecords(request, response){
-        const userId = request.params.id;
+    static ListMedicalRecords(request, response){
+        const {userId} = request.params;
         try{
-            const listMedicalRecords = database.users[userId].medicalRecords;
-            response.json(listMedicalRecords);
+            const Records = MedicalRecordService.getAllMedicalRecord( userId );
+            response.json(Records);
         }catch(error){
             response.status(500).json({error: error});
         }
     }
 
-    static apiEditMedicalRecords(request, response){
-        const userId = request.params.id;
+    static EditMedicalRecords(request, response){
+        const {userId} = request.params;
+        const data = request.body;
         try{
-            const editedMedicalRecord = MedicalRecordService.editMedicalRecord(request.body);
-            database.users[userId].medicalRecords[request.body.id] = editedMedicalRecord;
-            response.json(editedMedicalRecord);
+            const NewRecord = MedicalRecordService.editMedicalRecord( userId, data );
+            response.json(NewRecord);
         }catch(error){
             response.status(500).json({error: error});
         }

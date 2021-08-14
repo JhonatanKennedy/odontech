@@ -1,27 +1,18 @@
+const MedicalRecordRepository = require('../repository/MedicalRecordRepository');
+
 module.exports = class MedicalRecordService{
-    static createMedicalRecord(data,id){
-        const newMedicalRecord = {
-            id: id,
-            name: data.name,
-            birth: data.birth,
-            cel: data.cel,
-            alergies: data.alergies,
-            tooths: data.tooths,
-            comments: data.comments
-        }
-        return newMedicalRecord;
+    static createMedicalRecord( id, data ){
+        const medicalRecord = MedicalRecordRepository.CreateMedicalRecord( id, data );
+        return medicalRecord;
     }
 
-    static editMedicalRecord(data){
-        const editedMedicalRecord = {
-            id: data.id,
-            name: data.name,
-            birth: data.birth,
-            cel: data.cel,
-            alergies: data.alergies,
-            tooths: data.tooths,
-            comments: data.comments
-        }
-        return editedMedicalRecord;
+    static getAllMedicalRecord( userId ){
+        const Records = MedicalRecordRepository.GetAllMedicalRecords( userId );
+        return Records;
+    }
+
+    static editMedicalRecord( userId, data ){
+        const NewRecord = MedicalRecordRepository.EditMedicalRecord( userId, data );
+        return NewRecord;
     }
 }

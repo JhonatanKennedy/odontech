@@ -1,15 +1,33 @@
 const UserService = require('../services/user.service');
-const database = require('../database/database.json')
 
-module.exports = class User{
-    static async apiCreateUser(request, response){
+module.exports = class UserController{
+    static CreateUser(request, response){
+        const data = request.body;
         try{
-            const id = await database.users.length;
-            const newUser = UserService.createUser(request.body, id);
-            await database.users.push(newUser);
+            const newUser = UserService.createUser(data);
             response.json(newUser);
         }catch(error){
-            response.status(500).json({error: error})
+            response.status(500).json({error: error});
+        }
+    }
+
+    static GetUser(request, response){
+        const { id } = request.params;
+        try{
+            const user = UserService.getUser(id);
+            response.json(user);
+        }catch(error){
+            response.status(500).json({error: error});
+        }
+    }
+
+    static EditUser(request, response){
+        const { id } = request.params;  
+        try{
+            const editUser = UserService.editUser( id, request.body );
+            response.json(editUser);
+        }catch(error){
+            response.status(500).json({error: error});
         }
     }
 }

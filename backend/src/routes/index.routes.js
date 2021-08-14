@@ -1,9 +1,9 @@
 const express = require('express');
 const routes = express.Router();
-const userRouter = require('./user.routes');
-const medicalRecordsRouter = require('./medicalRecord.routes');
+const userRoutes = require('./user.routes');
+const admRoutes = require('./adm.routes');
 
-routes.use('/user', userRouter);
-routes.use('/user/record', medicalRecordsRouter);
+routes.use('/user', userRoutes);
+routes.use('/adm', admRoutes);
 
 module.exports = routes;
