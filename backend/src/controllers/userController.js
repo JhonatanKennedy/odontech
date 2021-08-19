@@ -15,7 +15,7 @@ module.exports = class UserController{
         const { id } = request.params;
         try{
             const user = UserService.getUser(id);
-            response.json(user);
+            response.json(user)
         }catch(error){
             response.status(500).json({error: error});
         }

@@ -3,7 +3,13 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import User from '../views/user/User.vue';
 import Admin from '../views/admin/Admin.vue';
-import CreateRecord from '../components/createRecords.vue'
+import CreateRecord from '../components/createRecords.vue';
+import ListRecords from '../components/listRecords.vue';
+import EditRecord from '../components/editRecords.vue';
+import ListRecordsUser from '../components/listRecordsUser.vue';
+import EditUser from '../components/editUser.vue';
+import recordUser from '../components/recordUser.vue';
+import createUser from '../components/createUser.vue';
 
 Vue.use(VueRouter)
 
@@ -14,7 +20,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/user',
+    path: '/user/:id',
     name: 'User',
     component: User
   },
@@ -25,9 +31,39 @@ const routes = [
   },
   {
     path: '/admin/createRecord/:id',
-    name: 'Record',
+    name: 'RecordCreate',
     component: CreateRecord,
   },
+  {
+    path: '/admin/listRecords/:id',
+    name: 'RecordsList',
+    component: ListRecords,
+  },
+  {
+    path: '/admin/listRecords/record/:id',
+    name: 'RecordEdit',
+    component: EditRecord,
+  },
+  {
+    path: '/user/recordsList/:id',
+    name: 'UserRecordList',
+    component: ListRecordsUser,
+  },
+  {
+    path: '/user/edit/:id',
+    name: 'UserEdit',
+    component: EditUser,
+  },
+  {
+    path: '/user/recordsList/record/:id',
+    name: 'RecordUser',
+    component: recordUser,
+  },
+  {
+    path:'/register',
+    name: 'CreateUser',
+    component: createUser
+  }
 
 ]
 

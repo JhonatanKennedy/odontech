@@ -42,8 +42,17 @@
             <td>{{ user.phone }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.medicalRecords.length || 0 }}</td>
-            <td><button @click="gotosite(user.id)">Criar Prontuário</button></td>
-            <td></td>
+            <td>
+              <v-btn depressed style="background-color:#2fb325; color: white;" 
+              @click="createRecordsPage(user.id)">
+                Criar Prontuário
+              </v-btn>
+            </td>
+            <td>
+                <v-btn depressed style="background-color: #1F7087; color: white;" @click="listRecordsPage(user.id)">
+                  Listar Prontuários
+                </v-btn>
+            </td>
           </tr>
         </tbody>
       </template>
@@ -63,24 +72,24 @@ export default {
     return{
       Users: [],
       search:'',
+      idd:0
     }
   },
 
   mounted(){
     admin.getUsers().then(response => {
       this.Users = response.data;
+    }).catch( error => {
+      alert(error);
     });
   },
 
-  watch:{
-    search: function(newVal){
-      console.log(newVal)
-    }
-  },
   methods:{
-    gotosite(id){
-      console.log(id)
-      window.location.href = window.location + '/createRecord/' + id
+    createRecordsPage(id){
+      this.$router.push(`/admin/createRecord/${id}`);
+    },
+    listRecordsPage(id){
+      this.$router.push(`/admin/listRecords/${id}`);
     }
   }
 
@@ -93,30 +102,6 @@ export default {
   flex-direction: column;
   align-items: center;
   height: 100%;
-}
-#userInfo{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-p.info{
-  padding: 10px 00px;
-}
-#userPage{
-  background-color: #1F7087;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 0px 10px;
-}
-#containerButtonsAdmin{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#teste{
-background-color: yellow;
 }
 
 </style>

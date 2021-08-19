@@ -9,4 +9,6 @@ routes.put('/:id', UserController.EditUser);                                    
 
 routes.get('/:userId', MedicalRecordController.ListMedicalRecords);               //posso listar meus prontuarios
 
+routes.get('/users/:id', UserController.GetUser);
+
 module.exports = routes;

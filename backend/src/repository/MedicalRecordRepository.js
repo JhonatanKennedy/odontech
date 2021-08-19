@@ -15,6 +15,10 @@ module.exports = class MedicalRecordRepository{
     return database.users[userId].medicalRecords;
   }
 
+  static GetMedicalRecord( userId, id ){
+    return database.users[userId].medicalRecords[id];
+  }
+
   static EditMedicalRecord( userId, record ){
     database.users[userId].medicalRecords[record.id] = record;
     return database.users[userId].medicalRecords[record.id];

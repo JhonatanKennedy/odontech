@@ -13,7 +13,7 @@ module.exports = class UserRepository{
     const editedUser = database.users[userID];
     editedUser.name = data.name;
     editedUser.password = data.password;
-    editedUser.phone = data.password;
+    editedUser.phone = data.phone;
     editedUser.email = data.email;
     database.users[userID] = editedUser;
     return database.users[userID];

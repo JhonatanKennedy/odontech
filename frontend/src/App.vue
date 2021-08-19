@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Unauthorized</router-link> |
-      <router-link to="/user">User</router-link> |
+      <router-link to="/user/0">User</router-link> |
       <router-link to="/admin">Admin</router-link>
     </div>
     <v-divider></v-divider>

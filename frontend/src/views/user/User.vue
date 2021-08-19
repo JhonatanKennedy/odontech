@@ -1,21 +1,38 @@
 <template>
   <div id="user">
-    <h2>User Page</h2>
+    <h2>Bem vindo(a) {{userInfo.name}}</h2>
     <br><br>
     <v-card height="200px" width="300px" id="card">
-      <button>Editar Usuario</button>
+      <button @click="editUserPage">Editar Usuario</button>
       <br>
-      <button>Listar Prontuários</button>
+      <button @click="listRecordsPage" >Listar Prontuários</button>
     </v-card>
 
   </div>
 </template>
 
 <script>
-  export default {
-    data: () => ({
+import user from '../../services/user';
 
-    }),
+  export default {
+    data: () => {
+      return{
+        userInfo:{}
+      }
+    },
+    methods:{
+      listRecordsPage(){
+        this.$router.push(`/user/recordsList/${this.$route.params.id}`);
+      },
+      editUserPage(){
+        this.$router.push(`/user/edit/${this.$route.params.id}`);
+      }
+    },
+    created(){
+      user.getUser(this.$route.params.id)
+      .then(response => this.userInfo = response.data)
+      .catch(error => alert(error));
+    }
   }
 </script>
 

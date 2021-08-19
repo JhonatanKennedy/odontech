@@ -4,8 +4,17 @@
             "id": 0,
             "name":"user1",
             "age": 15,
-            "phone": "81982385773",
+            "phone": "(12) 31311-1231",
             "email": "example@hotmail.com",
+            "password":"123",
+            "medicalRecords": []
+        },
+        {
+            "id": 1,
+            "name":"user2",
+            "age": 12,
+            "phone": "(12) 31311-1231",
+            "email": "example2@hotmail.com",
             "password":"123",
             "medicalRecords": []
         }

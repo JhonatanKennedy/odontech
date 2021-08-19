@@ -3,9 +3,11 @@ const routes = express.Router();
 const MedicalRecordController = require('../controllers/medicalRecordController');
 const UserController = require('../controllers/userController');
 
-routes.post('/users/:userId', MedicalRecordController.CreateMedicalRecord);   // posso criar prontuarios
+routes.post('/user/:userId', MedicalRecordController.CreateMedicalRecord);   // posso criar prontuarios
 
-routes.put('/users/:userId', MedicalRecordController.EditMedicalRecords);     // posso editar prontuarios
+routes.put('/user/:userId', MedicalRecordController.EditMedicalRecords);     // posso editar prontuarios
+
+routes.get('/user/:userId', MedicalRecordController.ListMedicalRecords);           //listar prontuários
 
 routes.get('/users/:id', UserController.GetUser);                             // posso ver os usuarios
 
