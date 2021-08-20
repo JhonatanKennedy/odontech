@@ -4,7 +4,7 @@
         <br>
         <br>
         <h3>Editar Usuário</h3>
-        <v-form id="formContainer">
+        <v-form id="formContainer" ref="form">
           <v-card-text>
             <v-text-field
               label="Nome"
@@ -25,14 +25,14 @@
               v-model="phone"
               v-mask="'(##) #####-####'"
               hide-details="auto"
-              :rules="rules"
+              :rules="rulePhone"
             ></v-text-field>
 
             <v-text-field
               label="Email"
               v-model="email"
               hide-details="auto"
-              :rules="rules"
+              :rules="emailRules"
             ></v-text-field>
 
             <v-text-field
@@ -71,6 +71,12 @@ export default {
       medicalRecords:[],
       rules:[
         value => !!value || 'Necessário',
+      ],
+      emailRules: [ 
+        v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail deve ser válido'
+      ],
+      rulePhone:[
+        v => v.length === 15 || 'Digite o número completo'
       ]
     }
   },
@@ -99,10 +105,14 @@ export default {
         password: this.password,
         medicalRecords: this.medicalRecords
       }
-      user.editUser(userData,this.$route.params.id)
-      .then(() => alert('Usuário editado com sucesso!'))
-      .catch(error => alert(error));
-      this.$router.push(`/user/${this.$route.params.id}`);
+      if(this.$refs.form.validate()){
+        user.editUser(userData,this.$route.params.id)
+        .then(() => alert('Usuário editado com sucesso!'))
+        .catch(error => alert(error));
+        this.$router.push(`/user/${this.$route.params.id}`);
+      }else{
+        alert('Digite todos os campos!');
+      }
     }
   }
 }

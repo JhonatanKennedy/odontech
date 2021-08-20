@@ -4,7 +4,7 @@
         <br>
         <br>
         <h3>Editar Prontuário</h3>
-        <v-form id="formContainer">
+        <v-form id="formContainer" ref="form">
           <v-card-text>
             <v-text-field
               label="Nome"
@@ -18,7 +18,7 @@
               v-model="birth"
               hide-details="auto"
               v-mask="'##/##/####'"
-              :rules="rules"
+              :rules="ruleBirth"
             ></v-text-field>
 
             <v-text-field
@@ -26,7 +26,7 @@
               v-model="cel"
               hide-details="auto"
               v-mask="'(##) #####-####'"
-              :rules="rules"
+              :rules="rulePhone"
             ></v-text-field>
 
             <v-text-field
@@ -99,6 +99,12 @@ export default {
 
       rules:[
         value => !!value || 'Necessário'
+      ],
+      rulePhone:[
+        v => v.length === 15 || 'Digite o número completo'
+      ],
+      ruleBirth:[
+        v => v.length === 10 || 'Digite a data completa'
       ]
     }
   },
@@ -115,16 +121,18 @@ export default {
         comments: this.comments,
         date: this.date
       }
-      admin.editRecord(data, this.$route.params.id)
-      .then( () => {
-        alert('Prontuário editado com sucesso');
-        this.$router.push('/admin');
-
-      })
-      .catch( error => {
-        alert(error)
-      })
-
+      if(this.$refs.form.validate()){
+        admin.editRecord(data, this.$route.params.id)
+        .then( () => {
+          alert('Prontuário editado com sucesso');
+          this.$router.push('/admin');
+        })
+        .catch( error => {
+          alert(error)
+        });
+      }else{
+        alert('Digite todos os campos');
+      }
     }
 
   },

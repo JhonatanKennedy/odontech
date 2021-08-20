@@ -4,50 +4,55 @@
         <br>
         <br>
         <h3>Novo Usuário</h3>
-        <v-form id="formContainer">
+        <v-form id="formContainer" ref="form">
           <v-card-text>
             <v-text-field
+              id="name"
               label="Nome"
               v-model="name"
               hide-details="auto"
-              :rules="[rules.required]"
+              :rules="rules"
             ></v-text-field>
 
             <v-text-field
+              id="age"
               label="Idade"
               v-model="age"
               hide-details="auto"
-              :rules="[rules.required]"
+              :rules="rules"
               type="number"
             ></v-text-field>
 
             <v-text-field
+              id="phone"
               label="Celular"
               v-model="phone"
               hide-details="auto"
               v-mask="'(##) #####-####'"
-              :rules="[rules.required]"
+              :rules="rulePhone"
             ></v-text-field>
 
             <v-text-field
+              id="email"
               label="Email"
               v-model="email"
               hide-details="auto"
-              :rules="[rules.required]"
-              suffix="@gmail.com"
+              :rules="emailRules"
             ></v-text-field>
 
             <v-text-field
+              id="password1"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               :type="show1 ? 'text' : 'password'"
               label="Senha"
               v-model="password"
               hide-details="auto"
-              :rules="[rules.required]"
+              :rules="rules"
               @click:append="show1 = !show1"
             ></v-text-field>
 
             <v-text-field
+              id="password2"
               :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
               :type="show2 ? 'text' : 'password'"
               label="Confirmação de senha"
@@ -80,9 +85,15 @@ export default {
       password2:'',
       show1:false,
       show2: false,
-      rules:{
-        required: value => !!value || 'Necessário',
-      }
+      rules:[
+        value => !!value || 'Necessário',
+      ],
+      emailRules: [ 
+        v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail deve ser válido'
+      ],
+      rulePhone:[
+        v => v.length === 15 || 'Digite o número completo'
+      ]
     }
  },
   computed:{
@@ -102,12 +113,17 @@ export default {
        email: this.email,
        password: this.password
      }
-     user.createUser(data)
-     .then((response) => {
-        this.$router.push(`/user/${response.data.id}`)
-     })
-     .catch(error => alert(error))
-     
+     if(this.$refs.form.validate()){
+      user.createUser(data)
+      .then((response) => {
+        alert('Usuário cadastrado com sucesso!')
+          this.$router.push(`/user/${response.data.id}`);
+    
+      })
+      .catch(error => alert(error))
+     }else{
+       alert('Preecha os campos necessários')
+     }
    }
  }
 }

@@ -7,7 +7,52 @@
             "phone": "(12) 31311-1231",
             "email": "example@hotmail.com",
             "password":"123",
-            "medicalRecords": []
+            "medicalRecords": [
+                {
+                    "id": 0,
+                    "name": "prontuario teste",
+                    "birth": "12/31/2312",
+                    "cel": "(11) 23232-1312",
+                    "alergies": "nenhuma",
+                    "tooths": [
+                      0,
+                      1,
+                      1,
+                      1,
+                      0,
+                      1,
+                      1,
+                      1,
+                      1,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                      1,
+                      1,
+                      1,
+                      1,
+                      1,
+                      1,
+                      1,
+                      1,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0,
+                      0
+                    ],
+                    "comments": "nenhum",
+                    "date": "2021-08-20T22:16:45.935Z"
+                  }
+            
+            ]
         },
         {
             "id": 1,

@@ -5,7 +5,7 @@
         <v-breadcrumbs :items="links"></v-breadcrumbs>
         <br>
         <h3>Novo Prontuário</h3>
-        <v-form id="formContainer">
+        <v-form id="formContainer" ref="form">
           <v-card-text>
             <v-text-field
               label="Nome"
@@ -19,7 +19,7 @@
               v-model="birth"
               hide-details="auto"
               v-mask="'##/##/####'"
-              :rules="rules"
+              :rules="ruleBirth"
             ></v-text-field>
 
             <v-text-field
@@ -27,7 +27,7 @@
               v-model="cel"
               hide-details="auto"
               v-mask="'(##) #####-####'"
-              :rules="rules"
+              :rules="rulePhone"
             ></v-text-field>
 
             <v-text-field
@@ -41,6 +41,7 @@
               label="Comentários"
               v-model="comments"
               hide-details="auto"
+              :rules="rules"
             ></v-text-field>
             <br>
 
@@ -110,12 +111,17 @@ export default {
       ],
       rules:[
         value => !!value || 'Necessário'
+      ],
+      rulePhone:[
+        v => v.length === 15 || 'Digite o número completo'
+      ],
+      ruleBirth:[
+        v => v.length === 10 || 'Digite a data completa'
       ]
     }
   },
   methods:{
     submit(){
-
       const data = {
         name: this.name,
         birth: this.birth,
@@ -124,17 +130,22 @@ export default {
         tooths: this.tooths,
         comments: this.comments
       }
-      admin.createRecord(data, this.$route.params.id)
-      .then( () => {
-        alert('Prontuário criado com sucesso');
-        window.location.href = 'http://localhost:8080/Admin/'
-      })
-      .catch( error => {
-        alert(error)
-      })
+
+      if(this.$refs.form.validate()){
+        admin.createRecord(data, this.$route.params.id)
+        .then( () => {
+            alert('Prontuário criado com sucesso');
+            this.$router.push('/admin');   
+        })
+        .catch( error => {
+          alert(error)
+        });
+      }else{
+        alert('Preencher os campos necessários');
+      }
 
     }
-  }
+  },
 }
 </script>
 
