@@ -1,14 +1,11 @@
 const assert = require('assert');
-const { Given, When, Then, setDefaultTimeout } = require('@cucumber/cucumber');
+const { Given, When, Then } = require('@cucumber/cucumber');
 const webdriver = require('selenium-webdriver');
 const {By} = require('selenium-webdriver');
-const { expect } = require('chai');
 
 let driver = new webdriver.Builder()
     .forBrowser('chrome')
     .build();
-
-//setDefaultTimeout(60*1000);
 
 Given('I am at the register page', async () => {
   await driver.get('http://localhost:8080/register');
@@ -40,8 +37,3 @@ Then('I should see a text {string}', async (string) => {
   assert.equal(textAlert, string)
   
 });
-/*
-  const textAlert = await driver.switchTo().alert().getText();
-  assert.equal(textAlert, string)
-  expect(textAlert).to.equal(string)
-*/
